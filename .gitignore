@@ -6,3 +6,4 @@ wheels/
 __pycache__/
 *.egg-info
 .idea/
+test.py
