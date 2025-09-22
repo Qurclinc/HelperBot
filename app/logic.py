@@ -6,12 +6,21 @@ def header_PAE() -> str:
            "+--------+--------+--------+--------+--------+"
 
 
+def quotient(a: int, b: int) -> int:
+    if abs(a) < abs(b):
+        return 0
+    if b * (a // b) > a:
+        return a // b + 1
+    else:
+        return a // b
+
+
 def find_values(a: int, b: int) -> List[List]:
     """
     Возвращает список строк вида [i, ai, xi, yi, qi]
     где qi — целочисленное частное (a_{i-1} // a_i) для i>=1, для 0-го элемента '-'
     """
-    result = [[0, a, 1, 0, "-"], [1, b, 0, 1, a // b]]
+    result = [[0, a, 1, 0, "-"], [1, b, 0, 1, quotient(a, b)]]
     i = 2
     while True:
         _, a2, x2, y2, q2 = result[i - 2]
@@ -21,7 +30,7 @@ def find_values(a: int, b: int) -> List[List]:
         yi = y2 - y1 * q1
         if ai == 0:
             break
-        qi_next = a1 // ai if ai != 0 else "-"
+        qi_next = quotient(a1, ai) if ai != 0 else "-"
         result.append([i, ai, xi, yi, qi_next])
         i += 1
 
