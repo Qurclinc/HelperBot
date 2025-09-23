@@ -102,8 +102,8 @@ async def make_Diophantine(message: types.Message, state: FSMContext):
     text += f"\n\nНОД({a}, {b}) = {result["gcd"]} = {a} * {result["k1"]} + {b} * {result["k2"]}\n"
     x0, y0 = result["part_solution"]
     if result["multiplicated"]:
-        text += f"{a} * {result["k1"]} + {b} * {result["k2"]} = 1 | * {c}\n"
-    text += f"{a} * {x0} + {b} * {y0} = {c}\n\n"
+        text += f"{a} * {result["k1"]} + {b} * {result["k2"]} = 1 | * {c} : {result["gcd"]}\n"
+    text += f"{a // result["gcd"]} * {x0} + {b // result["gcd"]} * {y0} = {c // result["gcd"]}\n\n"
     text += f"Частное решение:\nX̄ = {x0}\nɏ = {y0}\n\n"
     sol = result["common_solution"]
     text += f"Общее решение:\nx = {sol["x"][0]} + {sol["x"][1]}t\ny = {sol["y"][0]} - {sol["y"][1]}t\nt ∈ Z\n"
