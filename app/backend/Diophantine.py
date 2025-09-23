@@ -16,6 +16,8 @@ def solve_diophantine_equation(a: int, b: int, c: int) -> dict:
         x0 = k1 * c // answer["gcd"]
         y0 = k2 * c // answer["gcd"]
     else:
+        x0 = k1 * c // answer["gcd"]
+        y0 = k2 * c // answer["gcd"]
         answer["multiplicated"] = False
     answer["part_solution"] = (x0, y0)
     answer["common_solution"] = {
