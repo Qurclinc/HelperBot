@@ -19,10 +19,6 @@ class PAE(StatesGroup):
 class Diophantine(StatesGroup):
     coefficients = State()
 
-@router.message(Command("start"))
-async def start(message: types.Message):
-    await message.answer("aboba", reply_markup=kb.main_kb)
-
 ###############
 ### OAE alg ###
 ###############
