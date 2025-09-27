@@ -62,7 +62,7 @@ def find_reverse(a: int, m: int) -> str:
                 short_sequence += "S"
 
         # Удаляем первый бит из короткой последовательности
-        short_sequence = short_sequence[2:] if len(short_sequence) > 2 else ""
+        short_sequence = short_sequence[4:] if len(short_sequence) > 4 else ""
 
         answer += [f"Полная последовательность: {full_sequence}"]
         answer += [f"С удаленным первым битом: {short_sequence}"]

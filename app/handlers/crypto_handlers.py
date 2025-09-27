@@ -6,6 +6,7 @@ from html import escape
 
 from app.backend.Euclid import find_values, do_PAE, do_OAE
 from app.backend.Diophantine import solve_diophantine_equation
+from app.backend.BinaryMethod import find_reverse
 import app.keyboards as kb
 
 router = Router()
@@ -18,6 +19,11 @@ class PAE(StatesGroup):
 
 class Diophantine(StatesGroup):
     coefficients = State()
+
+class Rev_Mult(StatesGroup):
+    numbers = State()
+
+
 
 ###############
 ### OAE alg ###
@@ -112,3 +118,23 @@ async def make_Diophantine(message: types.Message, state: FSMContext):
 #####################
 ### Binary Method ###
 #####################
+
+@router.message(F.text == "Мультипликативное обратное")
+async def message_rev_mult(message: types.Message, state: FSMContext):
+    await message.answer("Введите числа разделённые пробелами")
+    await state.set_state(Rev_Mult.numbers)
+    
+@router.message(Rev_Mult.numbers)
+async def make_PAE(message: types.Message, state: FSMContext):
+    # ожидаем два числа: a b
+    try:
+        a, m = map(int, message.text.split())
+    except ValueError:
+        await message.answer("Неверный ввод. Введите два целых числа через пробел, например: `119 34`", parse_mode="Markdown")
+        return
+
+    text = find_reverse(a, m)
+
+    safe = escape(text)
+    await state.clear()
+    await message.answer(f"<pre>{safe}</pre>", parse_mode="HTML", reply_markup=kb.main_kb)
